@@ -25,7 +25,7 @@ func Command() (string, []string) {
 // a posix-compliant shell script.
 func Script(commands []string) string {
 	buf := new(bytes.Buffer)
-	fmt.Fprintln(buf)
+	fmt.Fprintln(buf, shebangLine)
 	fmt.Fprintf(buf, optionScript)
 	fmt.Fprintln(buf)
 	for _, command := range commands {
@@ -50,3 +50,5 @@ const traceScript = `
 echo + %s
 %s
 `
+
+const shebangLine =`#!/bin/bash`
