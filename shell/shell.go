@@ -9,7 +9,7 @@ package shell
 import "github.com/drone/runner-go/shell/bash"
 
 // Suffix provides the shell script suffix.
-const Suffix = ""
+const Suffix = ".sh"
 
 // Command returns the powershell command and arguments.
 func Command() (string, []string) {
