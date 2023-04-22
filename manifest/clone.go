@@ -6,8 +6,12 @@ package manifest
 
 // Clone configures the git clone.
 type Clone struct {
-	Disable    bool `json:"disable,omitempty"`
-	Depth      int  `json:"depth,omitempty"`
-	SkipVerify bool `json:"skip_verify,omitempty" yaml:"skip_verify"`
-	Trace      bool `json:"trace,omitempty"`
+	Disable    bool   `json:"disable,omitempty"`
+	Depth      int    `json:"depth,omitempty"`
+	SkipVerify bool   `json:"skip_verify,omitempty" yaml:"skip_verify"`
+	Trace      bool   `json:"trace,omitempty"`
+	Remote     string `json:"remote,omitempty"`
+	Commit     string `json:"commit,omitempty"`
+	Branch     string `json:"branch,omitempty"`
+	Ref        string `json:"ref,omitempty"`
 }
