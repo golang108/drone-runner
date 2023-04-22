@@ -16,6 +16,7 @@ import (
 
 // Parse parses the configuration from io.Reader r.
 func Parse(r io.Reader) (*Manifest, error) {
+	//第一步解析 yml 文件 最外层的 几个属性, 对应到  RawResource   类型里面的值
 	resources, err := ParseRaw(r)
 	if err != nil {
 		return nil, err
@@ -25,6 +26,7 @@ func Parse(r io.Reader) (*Manifest, error) {
 		if raw == nil {
 			continue
 		}
+		// 这一步就主要 解析  clone steps 等属性了,这个解析出来就是  Pipeline,使用 engine/resource/parser.go
 		resource, err := parseRaw(raw)
 		if err != nil {
 			return nil, err
