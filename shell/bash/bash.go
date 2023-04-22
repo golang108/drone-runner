@@ -18,7 +18,7 @@ const Suffix = ""
 
 // Command returns the shell command and arguments.
 func Command() (string, []string) {
-	return "/bin/sh", []string{"-e"}
+	return "/bin/bash", []string{"-e"}
 }
 
 // Script converts a slice of individual shell commands to
