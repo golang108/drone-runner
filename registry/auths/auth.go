@@ -52,7 +52,7 @@ func Parse(r io.Reader) ([]*drone.Registry, error) {
 	}
 	var auths []*drone.Registry
 	for k, v := range c.Auths {
-		username, password := v.Username, v.Password
+		username, password, oidcToken := v.Username, v.Password, v.OidcToken
 		if v.Auth != "" {
 			username, password = decode(v.Auth)
 		}
@@ -60,7 +60,7 @@ func Parse(r io.Reader) ([]*drone.Registry, error) {
 			Address:  hostname(k),
 			Username: username,
 			Password: password,
-			Token:    v.OidcToken,
+			Token:    oidcToken,
 		})
 	}
 	return auths, nil
