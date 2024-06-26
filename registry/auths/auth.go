@@ -36,9 +36,10 @@ type (
 
 	// auth stores the registry authentication string.
 	auth struct {
-		Auth     string `json:"auth"`
-		Username string `json:"username,omitempty"`
-		Password string `json:"password,omitempty"`
+		Auth      string `json:"auth"`
+		Username  string `json:"username,omitempty"`
+		Password  string `json:"password,omitempty"`
+		OidcToken string `json:"oidc,omitempty"`
 	}
 )
 
@@ -59,6 +60,7 @@ func Parse(r io.Reader) ([]*drone.Registry, error) {
 			Address:  hostname(k),
 			Username: username,
 			Password: password,
+			Token:    v.OidcToken,
 		})
 	}
 	return auths, nil
