@@ -99,6 +99,16 @@ func Header(username, password string) string {
 	return base64.URLEncoding.EncodeToString(buf)
 }
 
+func HeaderWithOidcToken(oidcToken string) string {
+	v := struct {
+		OidcToken string `json:"oidc_token,omitempty"`
+	}{
+		OidcToken: oidcToken,
+	}
+	buf, _ := json.Marshal(&v)
+	return base64.URLEncoding.EncodeToString(buf)
+}
+
 // encode returns the encoded credentials.
 func encode(username, password string) string {
 	return base64.StdEncoding.EncodeToString(
