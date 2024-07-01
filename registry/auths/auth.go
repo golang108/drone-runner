@@ -36,10 +36,9 @@ type (
 
 	// auth stores the registry authentication string.
 	auth struct {
-		Auth      string `json:"auth"`
-		Username  string `json:"username,omitempty"`
-		Password  string `json:"password,omitempty"`
-		OidcToken string `json:"oidc,omitempty"`
+		Auth     string `json:"auth"`
+		Username string `json:"username,omitempty"`
+		Password string `json:"password,omitempty"`
 	}
 )
 
@@ -52,7 +51,7 @@ func Parse(r io.Reader) ([]*drone.Registry, error) {
 	}
 	var auths []*drone.Registry
 	for k, v := range c.Auths {
-		username, password, oidcToken := v.Username, v.Password, v.OidcToken
+		username, password := v.Username, v.Password
 		if v.Auth != "" {
 			username, password = decode(v.Auth)
 		}
@@ -60,7 +59,6 @@ func Parse(r io.Reader) ([]*drone.Registry, error) {
 			Address:  hostname(k),
 			Username: username,
 			Password: password,
-			Token:    oidcToken,
 		})
 	}
 	return auths, nil
@@ -89,15 +87,13 @@ func ParseBytes(b []byte) ([]*drone.Registry, error) {
 // Header returns the json marshaled, base64 encoded
 // credential string that can be passed to the docker
 // registry authentication header.
-func Header(username, password, oidcToken string) string {
+func Header(username, password string) string {
 	v := struct {
-		Username  string `json:"username,omitempty"`
-		Password  string `json:"password,omitempty"`
-		OidcToken string `json:"oidc_token,omitempty"`
+		Username string `json:"username,omitempty"`
+		Password string `json:"password,omitempty"`
 	}{
-		Username:  username,
-		Password:  password,
-		OidcToken: oidcToken,
+		Username: username,
+		Password: password,
 	}
 	buf, _ := json.Marshal(&v)
 	return base64.URLEncoding.EncodeToString(buf)
