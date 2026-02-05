@@ -39,7 +39,7 @@ func TestCombine(t *testing.T) {
 		},
 	}
 	if diff := cmp.Diff(got, want); diff != "" {
-		t.Errorf(diff)
+		t.Errorf("mismatch (-got +want):\n%s", diff)
 	}
 }
 
